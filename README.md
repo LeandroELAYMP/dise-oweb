@@ -1,1 +1,82 @@
-# dise-oweb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Triángulos Rectángulos - Realidad Aumentada</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.7/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      #menu {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+      }
+      .btn {
+        display: block;
+        margin: 5px;
+        padding: 10px 20px;
+        background: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <div id="menu">
+      <button class="btn" onclick="show('simple')">🔺 Triángulo Básico</button>
+      <button class="btn" onclick="show('partes')">🧩 Partes del Triángulo</button>
+      <button class="btn" onclick="show('trigo')">📐 Razones Trigonométricas</button>
+      <button class="btn" onclick="show('ejemplo')">🧠 Ejercicio Ejemplo</button>
+    </div>
+
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+
+        <!-- 1. Triángulo rectángulo básico -->
+        <a-entity id="simple">
+          <a-entity geometry="primitive: plane; height: 2; width: 2" material="color: #fff; opacity: 0" position="1 0 0" rotation="-90 0 0"></a-entity>
+          <a-triangle color="#FFC107" vertex-a="0 0 0" vertex-b="0 2 0" vertex-c="2 0 0" rotation="-90 0 0"></a-triangle>
+        </a-entity>
+
+        <!-- 2. Partes del triángulo rectángulo -->
+        <a-entity id="partes" visible="false">
+          <a-triangle color="#FFFFFF" vertex-a="0 0 0" vertex-b="0 2 0" vertex-c="2 0 0" rotation="-90 0 0"></a-triangle>
+          <a-box position="1 0 0.01" depth="0.01" height="0.05" width="2" color="red"></a-box>
+          <a-box position="0 1 0.01" depth="0.01" height="2" width="0.05" color="blue"></a-box>
+          <a-box position="1 1 0.01" depth="0.01" height="0.05" width="2.2" rotation="0 0 45" color="green"></a-box>
+          <a-text value="Hipotenusa" position="0.5 0.1 0.01" rotation="-90 0 0" color="red" scale="0.5 0.5 0.5"></a-text>
+          <a-text value="Cateto Opuesto" position="0.1 1.5 0.01" rotation="-90 0 0" color="blue" scale="0.5 0.5 0.5"></a-text>
+          <a-text value="Cateto Adyacente" position="1.4 0.4 0.01" rotation="-90 0 0" color="green" scale="0.5 0.5 0.5"></a-text>
+        </a-entity>
+
+        <!-- 3. Razones trigonométricas -->
+        <a-entity id="trigo" visible="false">
+          <a-triangle color="#E1BEE7" vertex-a="0 0 0" vertex-b="0 3 0" vertex-c="4 0 0" rotation="-90 0 0"></a-triangle>
+          <a-text value="seno(θ) = opuesto / hipotenusa\n= 3 / 5 = 0.6" position="0 2.7 0.01" rotation="-90 0 0" scale="0.4 0.4 0.4" color="black"></a-text>
+          <a-text value="coseno(θ) = adyacente / hipotenusa\n= 4 / 5 = 0.8" position="0 2.2 0.01" rotation="-90 0 0" scale="0.4 0.4 0.4" color="black"></a-text>
+          <a-text value="tangente(θ) = opuesto / adyacente\n= 3 / 4 = 0.75" position="0 1.7 0.01" rotation="-90 0 0" scale="0.4 0.4 0.4" color="black"></a-text>
+        </a-entity>
+
+        <!-- 4. Ejemplo completo -->
+        <a-entity id="ejemplo" visible="false">
+          <a-triangle color="#B2EBF2" vertex-a="0 0 0" vertex-b="0 3 0" vertex-c="4 0 0" rotation="-90 0 0"></a-triangle>
+          <a-text value="Ejercicio:\nHipotenusa = 5\nCateto Opuesto = 3\nCateto Adyacente = 4" position="0.5 2.7 0.01" rotation="-90 0 0" scale="0.45 0.45 0.45" color="black"></a-text>
+          <a-text value="seno(θ) = 3 / 5 = 0.6\ncoseno(θ) = 4 / 5 = 0.8\ntangente(θ) = 3 / 4 = 0.75" position="0.5 1.7 0.01" rotation="-90 0 0" scale="0.45 0.45 0.45" color="black"></a-text>
+        </a-entity>
+
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      function show(id) {
+        const ids = ['simple', 'partes', 'trigo', 'ejemplo'];
+        ids.forEach(name => {
+          document.getElementById(name).setAttribute('visible', name === id);
+        });
+      }
+    </script>
+  </body>
+</html>
